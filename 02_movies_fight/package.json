@@ -1,0 +1,16 @@
+{
+  "name": "02_movies_fight",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.49.0",
+    "vite": "^2.7.2"
+  },
+  "dependencies": {
+    "@primer/css": "^19.2.0"
+  }
+}
