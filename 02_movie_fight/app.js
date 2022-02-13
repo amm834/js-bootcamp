@@ -1,13 +1,16 @@
 const url = 'http://www.omdbapi.com/'
 
-const fetchData = async () => {
-	const movies = await axios.get(url, {
+const fetchData = async (searchTerm) => {
+	const response = await axios.get(url, {
 		params: {
 			apikey: "b24ef25a",
-			s: "avengers"
+			s: searchTerm
 		}
 	})
-	console.log(movies)
+	console.log(response.data)
 }
 
-fetchData()
+const input = document.querySelector('input');
+input.addEventListener('input', (event) => {
+	fetchData(event.target.value)
+})

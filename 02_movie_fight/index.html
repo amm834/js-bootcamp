@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 
+
+<!-- As a heading -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">Movie</span>
+    </div>
+</nav>
+
+<main class="container mt-3">
+    <div class="row">
+        <div class="col-auto">
+            <label for="search" class="visually-hidden">Search Movie</label>
+            <input type="search" class="form-control" id="search" autocomplete="off">
+        </div>
+    </div>
+</main>
+
+<script src="js/bootstrap.bundle.js"></script>
 <script src="node_modules/axios/dist/axios.min.js"></script>
 <script src="app.js"></script>
 </body>
