@@ -1,4 +1,4 @@
-const createAutoComplete = ({root}) => {
+const createAutoComplete = ({root, renderOption}) => {
 
 	root.innerHTML = `
         <input type="search" class="dropdown-toggle form-control" data-bs-toggle="dropdown" 
@@ -38,20 +38,16 @@ const createAutoComplete = ({root}) => {
 			const option = document.createElement('a')
 			option.classList.add('dropdown-item')
 
-			const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
-			option.innerHTML = `
-		<img src="${imgSrc}"  width="50">
-		${movie.Title}
-		`;
+			option.innerHTML = renderOption(movie)
+
+			list.appendChild(option)
+			results.appendChild(list)
 
 			option.addEventListener('click', () => {
 				results.classList.add('invisible');
 				input.value = movie.Title;
 				onMovieSelect(movie)
 			})
-
-			list.appendChild(option)
-			results.appendChild(list)
 		}
 	}
 

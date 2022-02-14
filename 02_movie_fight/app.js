@@ -1,11 +1,14 @@
 const url = 'http://www.omdbapi.com/'
 
 createAutoComplete({
-	root:document.querySelector('.autocomplete')
-})
-
-createAutoComplete({
-	root: document.querySelector('.autocomplete-two')
+	root: document.querySelector('.autocomplete'),
+	renderOption(movie) {
+		const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
+		return `
+		<img src="${imgSrc}"  width="50">
+		${movie.Title} (${movie.Year})
+		`;
+	}
 })
 
 const onMovieSelect = async movie => {
