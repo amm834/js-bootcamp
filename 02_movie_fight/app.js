@@ -1,5 +1,16 @@
 const url = 'http://www.omdbapi.com/'
 
+const root = document.querySelector('.autocomplete')
+root.innerHTML = `
+            <div class="dropdown">
+                <input type="search" class="dropdown-toggle form-control" data-bs-toggle="dropdown"/>
+                <ul class="dropdown-menu results w-100">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                </ul>
+            </div>
+`
+const resultWrapper = document.querySelector('.results')
+
 const fetchData = async (searchTerm) => {
 	const response = await axios.get(url, {
 		params: {
