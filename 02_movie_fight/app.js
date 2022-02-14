@@ -2,10 +2,8 @@ const url = 'http://www.omdbapi.com/'
 
 const root = document.querySelector('.autocomplete')
 root.innerHTML = `
-            <div class="dropdown">
-                <input type="search" class="dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-auto-close="false"/>
-                <ul class="dropdown-menu results mt-2 invisible"></ul>
-            </div>
+        <input type="search " class="dropdown-toggle form-control" data-bs-toggle="dropdown"  data-bs-auto-close="outside"/>
+        <ul class="dropdown-menu results mt-2 invisible"></ul>
 `
 const results = document.querySelector('.results')
 
@@ -27,10 +25,16 @@ const fetchData = async (searchTerm) => {
 
 const onInput = async (event) => {
 	const movies = await fetchData(event.target.value)
+	if (!movies.length) {
+		results.classList.add('invisible')
+		return;
+	}
 
 	results.innerHTML = ''
 	results.classList.remove('invisible')
+
 	for (const movie of movies) {
+		const list = document.createElement('li')
 		const option = document.createElement('a')
 		option.classList.add('dropdown-item')
 
@@ -39,7 +43,8 @@ const onInput = async (event) => {
 		<img src="${imgSrc}"  width="50">
 		${movie.Title}
 		`;
-		results.appendChild(option)
+		list.appendChild(option)
+		results.appendChild(list)
 	}
 }
 
@@ -47,8 +52,8 @@ const input = document.querySelector('input');
 
 input.addEventListener('input', debounce(onInput))
 
-document.addEventListener('click', event => {
-	if (!root.contains(event.target)) {
-		results.classList.add('invisible')
-	}
-})
+// document.addEventListener('click', event => {
+// 	if (!root.contains(event.target)) {
+// 		results.classList.add('invisible')
+// 	}
+// })
