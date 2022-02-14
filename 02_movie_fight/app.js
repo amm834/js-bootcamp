@@ -6,10 +6,6 @@ const autocompleteConfig = {
 		${movie.Title} (${movie.Year})
 		`;
 	},
-	onOptionSelect(movie) {
-		document.getElementById('tutorial').classList.add('d-none')
-		onMovieSelect(movie)
-	},
 	inputValue(movie) {
 		return movie.Title;
 	},
@@ -30,26 +26,34 @@ const autocompleteConfig = {
 }
 createAutoComplete({
 	...autocompleteConfig,
-	root: document.getElementById('left-autocomplete')
+	root: document.getElementById('left-autocomplete'),
+	onOptionSelect(movie) {
+		document.getElementById('tutorial').classList.add('d-none')
+		onMovieSelect(movie,document.getElementById('left-summary'))
+	},
 })
 
 createAutoComplete({
 	...autocompleteConfig,
-	root: document.getElementById('right-autocomplete')
+	root: document.getElementById('right-autocomplete'),
+	onOptionSelect(movie) {
+		document.getElementById('tutorial').classList.add('d-none')
+		onMovieSelect(movie,document.getElementById('right-summary'))
+	},
 })
 
 
-const onMovieSelect = async movie => {
+const onMovieSelect = async (movie,summaryElement) => {
 	const response = await axios.get('http://www.omdbapi.com/', {
 		params: {
 			apikey: "b24ef25a", i: movie.imdbID
 		}
 	})
 	console.log(response.data)
-	document.querySelector('#summary').innerHTML = movieTemplate(response.data)
+	summaryElement.innerHTML = movieTemplate(response.data)
 }
 
-const movieTemplate = movieDetail => {
+const movieTemplate = (movieDetail) => {
 	return `
 	   <div class="card my-3 border-0">
             <div class="row g-0">

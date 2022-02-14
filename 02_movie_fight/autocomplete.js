@@ -4,7 +4,7 @@ const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue, fet
 		<label class="form-label">Search</label>
         <input type="search" class="input form-control" 
         />
-        <ul class="results mt-2 invisible list-group"></ul>
+        <ul class="results mt-2 d-none list-group"></ul>
 `
 	const input = root.querySelector('.input');
 	const results = root.querySelector('.results')
@@ -13,12 +13,12 @@ const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue, fet
 	const onInput = async (event) => {
 		const items = await fetchData(event.target.value)
 		if (!items.length) {
-			results.classList.add('invisible')
+			results.classList.add('d-none')
 			return;
 		}
 
 		results.innerHTML = ''
-		results.classList.remove('invisible')
+		results.classList.remove('d-none')
 
 		for (const item of items) {
 
@@ -30,7 +30,7 @@ const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue, fet
 			results.appendChild(option)
 
 			option.addEventListener('click', () => {
-				results.classList.add('invisible');
+				results.classList.add('d-none');
 				input.value = inputValue(item);
 				onOptionSelect(item)
 			})
@@ -42,7 +42,7 @@ const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue, fet
 
 	document.addEventListener('click', event => {
 		if (!root.contains(event.target)) {
-			results.classList.add('invisible')
+			results.classList.add('d-none')
 		}
 	})
 }
