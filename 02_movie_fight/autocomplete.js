@@ -1,7 +1,7 @@
-const createAutoComplete = ({root, renderOption}) => {
+const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue}) => {
 
 	root.innerHTML = `
-        <input type="search" class="dropdown-toggle form-control" data-bs-toggle="dropdown" 
+        <input type="search"  class=" input dropdown-toggle form-control" data-bs-toggle="dropdown" 
         />
         <ul class="dropdown-menu results mt-2 invisible"></ul>
 `
@@ -45,13 +45,13 @@ const createAutoComplete = ({root, renderOption}) => {
 
 			option.addEventListener('click', () => {
 				results.classList.add('invisible');
-				input.value = movie.Title;
-				onMovieSelect(movie)
+				input.value = inputValue(movie);
+				onOptionSelect(movie)
 			})
 		}
 	}
 
-	const input = document.querySelector('input');
+	const input = document.querySelector('.input');
 
 	input.addEventListener('input', util(onInput))
 

@@ -8,8 +8,15 @@ createAutoComplete({
 		<img src="${imgSrc}"  width="50">
 		${movie.Title} (${movie.Year})
 		`;
+	},
+	onOptionSelect(movie) {
+		onMovieSelect(movie)
+	},
+	inputValue(movie) {
+		return movie.Title;
 	}
 })
+
 
 const onMovieSelect = async movie => {
 	const response = await axios.get(url, {
