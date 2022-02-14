@@ -83,7 +83,7 @@ const movieTemplate = (movieDetail) => {
 			prev += value;
 			return prev;
 		}
-	},0)
+	}, 0)
 
 
 	return `
@@ -101,31 +101,31 @@ const movieTemplate = (movieDetail) => {
                 </div>
             </div>
         </div>
-        <div class="card text-white bg-primary mb-3">
+        <div class="card text-white bg-primary mb-3" data-value="${awards}">
         	<div class="card-body">
         		<h5 class="card-title">${movieDetail.Awards}</h5>
         		<p class="card-text">Awards</p>
         	</div>
         </div>
-        <div class="card text-white bg-primary mb-3">
+        <div class="card text-white bg-primary mb-3" data-value="${imdbRating}">
         	<div class="card-body">
         		<h5 class="card-title">${movieDetail.imdbRating}</h5>
         		<p class="card-text">IMDB Rating</p>
         	</div>
         </div>
-          <div class="card text-white bg-primary mb-3">
+          <div class="card text-white bg-primary mb-3" data-value="${boxOffice}">
         	<div class="card-body">
         		<h5 class="card-title">${movieDetail.BoxOffice}</h5>
         		<p class="card-text">Box Office</p>
         	</div>
         </div>
-        <div class="card text-white bg-primary mb-3">
+        <div class="card text-white bg-primary mb-3" data-value="${metaScore}">
         	<div class="card-body">
         		<h5 class="card-title">${movieDetail.Metascore}</h5>
         		<p class="card-text">Meta Score</p>
         	</div>
         </div>
-        <div class="card text-white bg-primary mb-3">
+        <div class="card text-white bg-primary mb-3" data-value="${imdbVotes}">
         	<div class="card-body">
         		<h5 class="card-title">${movieDetail.imdbVotes}</h5>
         		<p class="card-text">IMDB Votes</p>
