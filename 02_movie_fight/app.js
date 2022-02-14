@@ -7,13 +7,13 @@ const fetchData = async (searchTerm) => {
 			s: searchTerm
 		}
 	})
-	console.log(response.data)
+	return response.data.Search;
 }
 
 
-let timeoutId;
-const onInput = (event) => {
-	fetchData(event.target.value)
+const onInput = async (event) => {
+	const movies = await fetchData(event.target.value)
+	console.log(movies)
 }
 
 const input = document.querySelector('input');
