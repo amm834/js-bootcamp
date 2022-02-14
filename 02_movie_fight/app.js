@@ -28,13 +28,15 @@ const fetchData = async (searchTerm) => {
 const onInput = async (event) => {
 	const movies = await fetchData(event.target.value)
 
+	results.innerHTML = ''
 	results.classList.remove('invisible')
 	for (const movie of movies) {
 		const option = document.createElement('a')
 		option.classList.add('dropdown-item')
 
+		const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
 		option.innerHTML = `
-		<img src="${movie.Poster}" alt="${movie.Title}" width="50">
+		<img src="${imgSrc}"  width="50">
 		${movie.Title}
 		`;
 		results.appendChild(option)
