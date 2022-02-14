@@ -11,16 +11,6 @@ const fetchData = async (searchTerm) => {
 }
 
 
-function debounce(cb, delay = 500) {
-	let timeoutID;
-	return (...args) => {
-		if (timeoutID) clearTimeout(timeoutID);
-		timeoutID = setTimeout(() => {
-			cb.apply(null, args)
-		}, delay)
-	}
-}
-
 let timeoutId;
 const onInput = (event) => {
 	fetchData(event.target.value)
