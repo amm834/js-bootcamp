@@ -43,13 +43,15 @@ const onInput = async (event) => {
 		<img src="${imgSrc}"  width="50">
 		${movie.Title}
 		`;
-		list.appendChild(option)
-		results.appendChild(list)
 
 		option.addEventListener('click', () => {
 			results.classList.add('invisible');
 			input.value = movie.Title;
+			onMovieSelect(movie)
 		})
+
+		list.appendChild(option)
+		results.appendChild(list)
 	}
 }
 
@@ -62,3 +64,13 @@ input.addEventListener('input', debounce(onInput))
 // 		results.classList.add('invisible')
 // 	}
 // })
+
+const onMovieSelect = async movie => {
+	const response = await axios.get(url, {
+		params: {
+			apikey: "b24ef25a",
+			i: movie.imdbID
+		}
+	})
+	console.log(response.data)
+}
