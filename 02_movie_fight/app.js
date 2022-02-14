@@ -24,12 +24,13 @@ const autocompleteConfig = {
 		return response.data.Search;
 	}
 }
+
 createAutoComplete({
 	...autocompleteConfig,
 	root: document.getElementById('left-autocomplete'),
 	onOptionSelect(movie) {
 		document.getElementById('tutorial').classList.add('d-none')
-		onMovieSelect(movie,document.getElementById('left-summary'))
+		onMovieSelect(movie, document.getElementById('left-summary'), 'left')
 	},
 })
 
@@ -38,20 +39,9 @@ createAutoComplete({
 	root: document.getElementById('right-autocomplete'),
 	onOptionSelect(movie) {
 		document.getElementById('tutorial').classList.add('d-none')
-		onMovieSelect(movie,document.getElementById('right-summary'))
+		onMovieSelect(movie, document.getElementById('right-summary'), 'right')
 	},
 })
-
-
-const onMovieSelect = async (movie,summaryElement) => {
-	const response = await axios.get('http://www.omdbapi.com/', {
-		params: {
-			apikey: "b24ef25a", i: movie.imdbID
-		}
-	})
-	console.log(response.data)
-	summaryElement.innerHTML = movieTemplate(response.data)
-}
 
 const movieTemplate = (movieDetail) => {
 	return `
@@ -100,5 +90,29 @@ const movieTemplate = (movieDetail) => {
         	</div>
         </div>
 	`
+}
+
+let leftMovie;
+let rightMovie;
+const onMovieSelect = async (movie, summaryElement, side) => {
+	const response = await axios.get('http://www.omdbapi.com/', {
+		params: {
+			apikey: "b24ef25a", i: movie.imdbID
+		}
+	})
+	summaryElement.innerHTML = movieTemplate(response.data)
+	if (side === 'left') {
+		leftMovie = response.data;
+	} else {
+		rightMovie = response.data;
+	}
+
+	if (leftMovie && rightMovie){
+		runComparasion()
+	}
+}
+
+const runComparasion = () => {
+	console.log('compare')
 }
 
