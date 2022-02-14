@@ -1,13 +1,13 @@
-const createAutoComplete = (
-	{root, renderOption, onOptionSelect, inputValue, fetchData}
-) => {
+const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue, fetchData}) => {
 
 	root.innerHTML = `
-        <input type="search"  class="input dropdown-toggle form-control" data-bs-toggle="dropdown" 
+		<label class="form-label">Search</label>
+        <input type="search" class="input form-control" 
         />
-        <ul class="dropdown-menu results mt-2 invisible"></ul>
+        <ul class="results mt-2 invisible list-group"></ul>
 `
-	const results = document.querySelector('.results')
+	const input = root.querySelector('.input');
+	const results = root.querySelector('.results')
 
 
 	const onInput = async (event) => {
@@ -21,14 +21,13 @@ const createAutoComplete = (
 		results.classList.remove('invisible')
 
 		for (const item of items) {
-			const list = document.createElement('li')
+
 			const option = document.createElement('a')
-			option.classList.add('dropdown-item')
+			option.classList.add('list-group-item')
 
 			option.innerHTML = renderOption(item)
 
-			list.appendChild(option)
-			results.appendChild(list)
+			results.appendChild(option)
 
 			option.addEventListener('click', () => {
 				results.classList.add('invisible');
@@ -38,13 +37,12 @@ const createAutoComplete = (
 		}
 	}
 
-	const input = document.querySelector('.input');
 
-	input.addEventListener('input', util(onInput))
+	input.addEventListener('input', debounce(onInput))
 
-// document.addEventListener('click', event => {
-// 	if (!root.contains(event.target)) {
-// 		results.classList.add('invisible')
-// 	}
-// })
+	document.addEventListener('click', event => {
+		if (!root.contains(event.target)) {
+			results.classList.add('invisible')
+		}
+	})
 }
