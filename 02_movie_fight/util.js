@@ -1,4 +1,4 @@
-function debounce(cb, delay = 500) {
+function util(cb, delay = 500) {
 	let timeoutID;
 	return (...args) => {
 		if (timeoutID) clearTimeout(timeoutID);
