@@ -65,7 +65,25 @@ const onMovieSelect = async (movie, summaryElement, side) => {
 }
 
 const runComparasion = () => {
-	console.log('compare')
+	const leftStats = document.querySelectorAll('#left-summary .card.mb-3');
+	const rightStats = document.querySelectorAll('#right-summary .card.mb-3');
+
+	leftStats.forEach((leftStat, index) => {
+		const rightStat = rightStats[index]
+
+		const leftStatValue = leftStat.dataset.value;
+		const rightStatValue = rightStat.dataset.value;
+		if (leftStatValue > rightStatValue) {
+			leftStat.classList.remove('bg-primary')
+			leftStat.classList.add('bg-success')
+			rightStat.classList.add('bg-danger')
+		} else {
+			rightStat.classList.remove('bg-danger')
+			rightStat.classList.remove('bg-primary')
+			rightStat.classList.add('bg-success')
+			leftStat.classList.add('bg-danger')
+		}
+	})
 }
 
 
