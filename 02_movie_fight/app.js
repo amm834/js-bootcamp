@@ -13,7 +13,14 @@ const fetchData = async (searchTerm) => {
 
 const onInput = async (event) => {
 	const movies = await fetchData(event.target.value)
-	console.log(movies)
+	for (const movie of movies) {
+		const div = document.createElement('div')
+		div.innerHTML = `
+		<h1>${movie.Title}</h1>
+		<img src="${movie.Poster}" alt="${movie.Title}">
+		`;
+		document.querySelector('#target').appendChild(div)
+	}
 }
 
 const input = document.querySelector('input');
