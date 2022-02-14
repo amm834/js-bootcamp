@@ -71,8 +71,8 @@ const runComparasion = () => {
 	leftStats.forEach((leftStat, index) => {
 		const rightStat = rightStats[index]
 
-		const leftStatValue = leftStat.dataset.value;
-		const rightStatValue = rightStat.dataset.value;
+		const leftStatValue = parseFloat(leftStat.dataset.value);
+		const rightStatValue = parseFloat(rightStat.dataset.value);
 		if (leftStatValue > rightStatValue) {
 			leftStat.classList.remove('bg-primary')
 			leftStat.classList.add('bg-success')
