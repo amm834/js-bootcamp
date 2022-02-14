@@ -3,7 +3,7 @@ const url = 'http://www.omdbapi.com/'
 const root = document.querySelector('.autocomplete')
 root.innerHTML = `
             <div class="dropdown">
-                <input type="search" class="dropdown-toggle form-control" data-bs-toggle="dropdown"/>
+                <input type="search" class="dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-auto-close="false"/>
                 <ul class="dropdown-menu results mt-2 invisible"></ul>
             </div>
 `
@@ -46,3 +46,9 @@ const onInput = async (event) => {
 const input = document.querySelector('input');
 
 input.addEventListener('input', debounce(onInput))
+
+document.addEventListener('click', event => {
+	if (!root.contains(event.target)) {
+		results.classList.add('invisible')
+	}
+})
