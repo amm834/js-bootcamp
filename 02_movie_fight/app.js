@@ -43,7 +43,38 @@ createAutoComplete({
 	},
 })
 
+
+let leftMovie;
+let rightMovie;
+const onMovieSelect = async (movie, summaryElement, side) => {
+	const response = await axios.get('http://www.omdbapi.com/', {
+		params: {
+			apikey: "b24ef25a", i: movie.imdbID
+		}
+	})
+	summaryElement.innerHTML = movieTemplate(response.data)
+	if (side === 'left') {
+		leftMovie = response.data;
+	} else {
+		rightMovie = response.data;
+	}
+
+	if (leftMovie && rightMovie) {
+		runComparasion()
+	}
+}
+
+const runComparasion = () => {
+	console.log('compare')
+}
+
+
 const movieTemplate = (movieDetail) => {
+	const imdbRating = parseFloat(movieDetail.imdbRating)
+	const boxOffice = parseInt(movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, ''))
+	const metaScore = parseInt(movieDetail.Metascore)
+	const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''))
+
 	return `
 	   <div class="card my-3 border-0">
             <div class="row g-0">
@@ -91,28 +122,3 @@ const movieTemplate = (movieDetail) => {
         </div>
 	`
 }
-
-let leftMovie;
-let rightMovie;
-const onMovieSelect = async (movie, summaryElement, side) => {
-	const response = await axios.get('http://www.omdbapi.com/', {
-		params: {
-			apikey: "b24ef25a", i: movie.imdbID
-		}
-	})
-	summaryElement.innerHTML = movieTemplate(response.data)
-	if (side === 'left') {
-		leftMovie = response.data;
-	} else {
-		rightMovie = response.data;
-	}
-
-	if (leftMovie && rightMovie){
-		runComparasion()
-	}
-}
-
-const runComparasion = () => {
-	console.log('compare')
-}
-
