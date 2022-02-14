@@ -1,31 +1,18 @@
-const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue}) => {
+const createAutoComplete = (
+	{root, renderOption, onOptionSelect, inputValue, fetchData}
+) => {
 
 	root.innerHTML = `
-        <input type="search"  class=" input dropdown-toggle form-control" data-bs-toggle="dropdown" 
+        <input type="search"  class="input dropdown-toggle form-control" data-bs-toggle="dropdown" 
         />
         <ul class="dropdown-menu results mt-2 invisible"></ul>
 `
 	const results = document.querySelector('.results')
 
-	const fetchData = async (searchTerm) => {
-		const response = await axios.get('http://www.omdbapi.com/', {
-			params: {
-				apikey: "b24ef25a",
-				s: searchTerm
-			}
-		})
-
-		if (response.data.Error) {
-			return [];
-		}
-
-		return response.data.Search;
-	}
-
 
 	const onInput = async (event) => {
-		const movies = await fetchData(event.target.value)
-		if (!movies.length) {
+		const items = await fetchData(event.target.value)
+		if (!items.length) {
 			results.classList.add('invisible')
 			return;
 		}
@@ -33,20 +20,20 @@ const createAutoComplete = ({root, renderOption, onOptionSelect, inputValue}) =>
 		results.innerHTML = ''
 		results.classList.remove('invisible')
 
-		for (const movie of movies) {
+		for (const item of items) {
 			const list = document.createElement('li')
 			const option = document.createElement('a')
 			option.classList.add('dropdown-item')
 
-			option.innerHTML = renderOption(movie)
+			option.innerHTML = renderOption(item)
 
 			list.appendChild(option)
 			results.appendChild(list)
 
 			option.addEventListener('click', () => {
 				results.classList.add('invisible');
-				input.value = inputValue(movie);
-				onOptionSelect(movie)
+				input.value = inputValue(item);
+				onOptionSelect(item)
 			})
 		}
 	}
