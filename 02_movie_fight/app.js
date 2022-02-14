@@ -45,6 +45,11 @@ const onInput = async (event) => {
 		`;
 		list.appendChild(option)
 		results.appendChild(list)
+
+		option.addEventListener('click', () => {
+			results.classList.add('invisible');
+			input.value = movie.Title;
+		})
 	}
 }
 
