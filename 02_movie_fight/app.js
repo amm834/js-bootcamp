@@ -74,6 +74,17 @@ const movieTemplate = (movieDetail) => {
 	const boxOffice = parseInt(movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, ''))
 	const metaScore = parseInt(movieDetail.Metascore)
 	const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''))
+	const awards = movieDetail.Awards.split(' ').reduce((prev, current) => {
+		const value = parseInt(current)
+
+		if (isNaN(value)) {
+			return prev
+		} else {
+			prev += value;
+			return prev;
+		}
+	},0)
+
 
 	return `
 	   <div class="card my-3 border-0">
