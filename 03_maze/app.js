@@ -1,13 +1,16 @@
 const {Engine, Render, World, Bodies, Runner, MouseConstraint, Mouse} = Matter;
 
+const width = 800;
+const height = 600;
+
 const engine = Engine.create()
 const {world} = engine;
 const render = Render.create({
 	element: document.body,
 	engine,
 	options: {
-		width: 800,
-		height: 600
+		width,
+		height
 	}
 });
 Render.run(render)
@@ -26,4 +29,10 @@ const walls = [
 ]
 
 World.add(world, walls)
-World.add(world, Bodies.rectangle(200, 200, 50, 50))
+
+// Random shapes
+for (let i = 0; i < 20; i++) {
+	World.add(world,
+		Bodies.rectangle(Math.random() * width, Math.random() * height, 50, 50)
+	)
+}
