@@ -31,8 +31,14 @@ const walls = [
 World.add(world, walls)
 
 // Random shapes
-for (let i = 0; i < 20; i++) {
-	World.add(world,
-		Bodies.rectangle(Math.random() * width, Math.random() * height, 50, 50)
-	)
+for (let i = 0; i < 50; i++) {
+	if (Math.random() > 0.5) {
+		World.add(world,
+			Bodies.rectangle(Math.random() * width, Math.random() * height, 50, 50)
+		)
+	} else {
+		World.add(world,
+			Bodies.circle(Math.random() * width, Math.random() * height, 35)
+		)
+	}
 }
