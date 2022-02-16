@@ -9,6 +9,7 @@ const render = Render.create({
 	element: document.body,
 	engine,
 	options: {
+		wireframes: false,
 		width,
 		height
 	}
@@ -30,15 +31,7 @@ const walls = [
 
 World.add(world, walls)
 
-// Random shapes
-for (let i = 0; i < 50; i++) {
-	if (Math.random() > 0.5) {
-		World.add(world,
-			Bodies.rectangle(Math.random() * width, Math.random() * height, 50, 50)
-		)
-	} else {
-		World.add(world,
-			Bodies.circle(Math.random() * width, Math.random() * height, 35)
-		)
-	}
-}
+// Generate Maze
+const grid = Array(3).fill(null)
+	.map(() => Array(3).fill(false))
+console.log(grid)
