@@ -16,8 +16,13 @@ program.version('1.0.0')
 			throw new Error(`${name} file not found.`)
 		}
 
+		let proc;
 		const start = debounce(() => {
-			spawn('node', [name], {stdio: 'inherit'})
+			if (proc) {
+				proc.kill();
+			}
+			console.log('Start watching program ...')
+			proc = spawn('node', [name], {stdio: 'inherit'})
 		}, 100);
 
 		chokidar.watch('.')
