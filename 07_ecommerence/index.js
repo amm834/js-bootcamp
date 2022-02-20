@@ -10,10 +10,8 @@ app.use(cookieSession({
 }))
 
 
-app.get('/', (req, res) => {
+app.get('/sign-up', (req, res) => {
 	res.send(`
-	
-	<div>${req.session.userId}</div>
     <form method="post">
     <input type="email" placeholder="email" name="email">
     <input type="password" placeholder="password" name="password">
@@ -24,7 +22,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', async (req, res) => {
+app.post('/sign-up', async (req, res) => {
 	const {email, password, confirmPassword} = req.body;
 
 	const exsitingUser = await userRepo.getOneBy({email});
@@ -42,6 +40,26 @@ app.post('/', async (req, res) => {
 	res.send('Account created.')
 })
 
+app.get('/sign-in', (req, res) => {
+	res.send(`
+	 <form method="post">
+    <input type="email" placeholder="email" name="email">
+    <input type="password" placeholder="password" name="password">
+    <button type="submit">Sign In</button>
+	</form>
+	`)
+})
+
+app.post('/sign-in', async (req, res) => {
+
+})
+
+
+app.get('/sign-out', (req, res) => {
+	req.session = null;
+
+	res.send('You have been logged out.')
+})
 
 app.listen(3000, () => {
 	console.log('Server is running at port 3000')
