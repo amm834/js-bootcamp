@@ -3,6 +3,7 @@ const express = require('express')
 const signupTemplate = require('../../views/admin/auth/sign-up')
 const signinTemplate = require('../../views/admin/auth/sign-in')
 const {check, validationResult} = require('express-validator')
+const {requireEmail, requirePassword, requirePasswordConfirmation} = require('./validators')
 
 const router = express.Router();
 
@@ -12,32 +13,7 @@ router.get('/sign-up', (req, res) => {
 
 
 router.post('/sign-up', [
-	check('email')
-		.trim().normalizeEmail()
-		.isEmail()
-		.withMessage('Must be valid email')
-		.custom(async email => {
-			const exsitingUser = await userRepo.getOneBy(email);
-			if (exsitingUser) {
-				throw new Error('User with that email is already exists')
-			}
-		})
-	,
-	check('password')
-		.trim().isLength({min: 4, max: 20})
-		.withMessage('Must have 4 to 20 character')
-	,
-	check('confirmPassword')
-		.trim()
-		.isLength({min: 4, max: 20})
-		.withMessage('Must have 4 to 20 character')
-		.custom(async (confirmPassword, {req}) => {
-			const {password} = req.body;
-			if (password !== confirmPassword) {
-				throw new Error('Passwords not match.')
-			}
-		})
-
+	requireEmail, requirePassword, requirePasswordConfirmation
 ], async (req, res) => {
 	const {errors} = validationResult(req)
 	console.log(errors)

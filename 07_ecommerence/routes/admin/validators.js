@@ -1,0 +1,30 @@
+const {check} = require("express-validator");
+const userRepo = require("../../repositories/users");
+
+module.exports = {
+	requireEmail: check('email')
+		.trim().normalizeEmail()
+		.isEmail()
+		.withMessage('Must be valid email')
+		.custom(async email => {
+			const exsitingUser = await userRepo.getOneBy(email);
+			if (exsitingUser) {
+				throw new Error('User with that email is already exists')
+			}
+		})
+	,
+	requirePassword: check('password')
+		.trim().isLength({min: 4, max: 20})
+		.withMessage('Must have 4 to 20 character')
+	,
+	requirePasswordConfirmation: check('confirmPassword')
+		.trim()
+		.isLength({min: 4, max: 20})
+		.withMessage('Must have 4 to 20 character')
+		.custom(async (confirmPassword, {req}) => {
+			const {password} = req.body;
+			if (password !== confirmPassword) {
+				throw new Error('Passwords not match.')
+			}
+		})
+}
