@@ -2,7 +2,7 @@ const layout = require('./layout')
 
 const getErrors = (errors, prop) => {
 	try {
-		return errors[prop].msg;
+		return errors.mapped()[prop].msg;
 	} catch (errors) {
 		return '';
 	}
