@@ -28,6 +28,7 @@ module.exports = {
 			}
 		}),
 	requireEmailExists: check('email').trim().normalizeEmail().isEmail()
+		.withMessage('Invalid email')
 		.custom(async (email) => {
 			const user = await userRepo.getOneBy({email});
 
