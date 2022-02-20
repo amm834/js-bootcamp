@@ -23,6 +23,10 @@ class UserRepository {
 		const records = await this.getAll();
 		records.push(attrs)
 
+		await this.writeAll(records)
+	}
+
+	async writeAll(records) {
 		await fs.promises.writeFile(this.filename, JSON.stringify(records, null, 4))
 	}
 }
