@@ -51,7 +51,21 @@ app.get('/sign-in', (req, res) => {
 })
 
 app.post('/sign-in', async (req, res) => {
+	const {email, password} = req.body;
 
+	const user = await userRepo.getOneBy({email});
+
+	if (!user) {
+		return res.send('No user with that email.')
+	}
+
+	console.log(user)
+	if (password !== user.password) {
+		return res.send('Invalid password');
+	}
+
+	req.session.userId = user._id;
+	res.send('You are logged in.')
 })
 
 
