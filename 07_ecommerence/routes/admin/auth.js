@@ -2,21 +2,24 @@ const userRepo = require("../../repositories/users");
 const express = require('express')
 const signupTemplate = require('../../views/admin/auth/sign-up')
 const signinTemplate = require('../../views/admin/auth/sign-in')
-const {check, validationResult} = require('express-validator')
+const {validationResult} = require('express-validator')
 const {requireEmail, requirePassword, requirePasswordConfirmation} = require('./validators')
 
 const router = express.Router();
 
 router.get('/sign-up', (req, res) => {
-	res.send(signupTemplate())
+	res.send(signupTemplate({}))
 })
 
 
 router.post('/sign-up', [
 	requireEmail, requirePassword, requirePasswordConfirmation
 ], async (req, res) => {
-	const {errors} = validationResult(req)
-	console.log(errors)
+	const results = validationResult(req);
+
+	if (!results.isEmpty()) {
+		return res.send(signupTemplate({errors: results.mapped()}))
+	}
 
 	const {email, password} = req.body;
 	const user = await userRepo.create({email, password})
