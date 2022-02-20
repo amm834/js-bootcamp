@@ -6,7 +6,7 @@ module.exports = ({errors}) => {
 		content: `
   <section class="row">
     <div class="col-md-8 offset-md-2">
-        <h6 class="text-center mb-5">Sign Up</h6>
+        <h1 class="text-center mb-5">Sign Up</h1>
         <form method="post" class="card p-5">
             <div class="mb-3">
                 <input placeholder="email" name="email" class="form-control">

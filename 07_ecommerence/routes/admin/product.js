@@ -1,20 +1,24 @@
 const express = require('express')
 const productRepo = require('../../repositories/product')
 const productNewTempalte = require('../../views/admin/product/new')
+const productIndexTempalte = require('../../views/admin/product/index')
 const {requireTitle, requirePrice} = require('../admin/validators')
 const upload = require('../../storage/upload')
-const {handleErrors} = require('./middlewares')
+const {handleErrors, requireAuth} = require('./middlewares')
 
 const router = express.Router()
 
-router.get('/admin/products', (req, res) => {
+router.get('/admin/products', requireAuth, async (req, res) => {
+	const products = await productRepo.getAll();
+	res.send(productIndexTempalte({products}))
 })
 
-router.get('/admin/products/new', (req, res) => {
+router.get('/admin/products/new', requireAuth, (req, res) => {
 	res.send(productNewTempalte({}))
 })
 
 router.post('/admin/products/new',
+	requireAuth,
 	upload.single('image'),
 	[requireTitle, requirePrice],
 	handleErrors(productNewTempalte),

@@ -45,7 +45,7 @@ router.post('/sign-in',
 		const user = await userRepo.getOneBy({email: req.body.email});
 
 		req.session.userId = user._id;
-		res.send('You are logged in.')
+		res.redirect('/admin/products')
 	}
 )
 
@@ -53,7 +53,7 @@ router.post('/sign-in',
 router.get('/sign-out', (req, res) => {
 	req.session = null;
 
-	res.send('You have been logged out.')
+	res.redirect('/sign-in')
 })
 
 module.exports = router;

@@ -9,5 +9,12 @@ module.exports = {
 			}
 			next()
 		}
+	},
+	requireAuth(req, res, next) {
+		const {userId} = req.session;
+		if (!userId) {
+			res.redirect('/sign-in')
+		}
+		next()
 	}
 }
