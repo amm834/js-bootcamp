@@ -47,10 +47,22 @@ class UserRepository {
 		const filteredRecords = records.filter(record => record._id !== _id);
 		await this.writeAll(filteredRecords);
 	}
+
+	async update(_id, attrs) {
+		const records = await this.getAll();
+		const record = records.find(record => record._id === _id);
+		if (!record) {
+			throw new Error(`User with id ${_id} not found`)
+		}
+		Object.assign(record, attrs);
+		await this.writeAll(records);
+	}
 }
 
 const test = async () => {
 	const repo = new UserRepository('users.json')
-	await repo.delete('21383ff8')
+	await repo.update('2d5019c7',{
+		password:'password'
+	})
 }
 test();
