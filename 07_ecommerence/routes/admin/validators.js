@@ -2,6 +2,16 @@ const {check} = require("express-validator");
 const userRepo = require("../../repositories/users");
 
 module.exports = {
+	requireTitle: check('title')
+		.trim()
+		.not()
+		.isEmpty()
+		.withMessage('Title must provide'),
+	requirePrice: check('price')
+		.trim()
+		.isFloat()
+		.toFloat()
+		.withMessage('Price must be provided with minimum 1$'),
 	requireEmail: check('email')
 		.trim().normalizeEmail()
 		.isEmail()
@@ -50,5 +60,5 @@ module.exports = {
 			if (!validPassword) {
 				throw new Error('Invalid password');
 			}
-		})
+		}),
 }
