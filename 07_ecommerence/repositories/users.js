@@ -6,10 +6,6 @@ const Repository = require('./repository')
 const scrypt = util.promisify(crypto.scrypt)
 
 class UserRepository extends Repository {
-	constructor(filename) {
-		super(filename);
-	}
-
 	async create(attrs) {
 		attrs._id = this.randomId();
 		const salt = crypto.randomUUID().toString().replace('-', '')
