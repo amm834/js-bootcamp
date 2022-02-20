@@ -16,6 +16,7 @@ module.exports = ({products}) => {
 	return layout({
 		content: `
 	<h2 class="mb-3">Products</h2>
+	<a class="btn btn-success" href="/admin/products/new" >Create</a>
 
 	<table class="table">
 	${card(products)}
