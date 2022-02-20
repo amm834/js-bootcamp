@@ -1,4 +1,4 @@
-const layout = require('./layout')
+const layout = require('../layout')
 const {getErrors} = require('../../helper')
 
 module.exports = ({errors}) => layout({

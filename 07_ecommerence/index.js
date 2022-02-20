@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const userRepo = require('./repositories/users')
 const cookieSession = require('cookie-session')
 const authRoute = require('./routes/admin/auth')
-const proudctRoute = require('./routes/admin/product')
+const productRoute = require('./routes/admin/product')
 
 const app = express()
 app.use(express.static('public'))
@@ -14,7 +14,7 @@ app.use(cookieSession({
 
 // routes
 app.use(authRoute)
-app.use(proudctRoute)
+app.use(productRoute)
 
 app.listen(3000, () => {
 	console.log('Server is running at port 3000')

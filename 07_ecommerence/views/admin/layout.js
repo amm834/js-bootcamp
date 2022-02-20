@@ -41,7 +41,7 @@ module.exports = ({content}) => {
             </ul>
 
             <form class="d-flex">
-            </form>
+            </form>	
         </div>
     </div>
 </nav>
