@@ -1,8 +1,6 @@
 const fs = require("fs");
 const crypto = require('crypto')
-const util = require('util')
 
-const scrypt = util.promisify(crypto.scrypt)
 
 module.exports = class Repository {
 	constructor(filename) {
@@ -18,9 +16,13 @@ module.exports = class Repository {
 	}
 
 	async create(attrs) {
-		attrs._id = crypto.randomUUID().replace('-', '')
+		attrs._id = this.randomId();
 		const records = await this.getAll();
+
 		records.push(attrs)
+
+		await this.writeAll(records)
+
 		return attrs;
 	}
 

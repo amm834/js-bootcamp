@@ -1,12 +1,13 @@
 const express = require('express')
 const bodyParser = require("body-parser");
-const userRepo = require('./repositories/users')
 const cookieSession = require('cookie-session')
 const authRoute = require('./routes/admin/auth')
 const productRoute = require('./routes/admin/product')
+const path = require("path");
 
 const app = express()
-app.use(express.static('public'))
+
+app.use(express.static(path.join(__dirname,'/public')))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieSession({
 	keys: ['a secret key']

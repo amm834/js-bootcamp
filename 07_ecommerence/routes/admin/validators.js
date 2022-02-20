@@ -1,7 +1,15 @@
 const {check} = require("express-validator");
 const userRepo = require("../../repositories/users");
+const upload = require("../../storage/upload");
+
 
 module.exports = {
+	requireImage: check("image", 'image')
+		.custom(({req}) => {
+			if (req.file.fieldname && req.file.size <= 0) {
+				throw new Error('Image is required')
+			}
+		}),
 	requireTitle: check('title')
 		.trim()
 		.not()
