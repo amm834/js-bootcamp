@@ -2,6 +2,7 @@ const express = require('express')
 const productRepo = require('../../repositories/product')
 const productNewTempalte = require('../../views/admin/product/new')
 const productIndexTempalte = require('../../views/admin/product/index')
+const productEditTempalte = require('../../views/admin/product/edit')
 const {requireTitle, requirePrice} = require('../admin/validators')
 const upload = require('../../storage/upload')
 const {handleErrors, requireAuth} = require('./middlewares')
@@ -38,5 +39,15 @@ router.post('/admin/products/new',
 	}
 )
 ;
+
+router.get('/admin/products/:id/edit', async (req, res) => {
+	const {id} = req.params;
+	const product = await productRepo.getOne(id)
+	if (!product) {
+		return res.send('Product not found')
+	}
+
+	res.send(productEditTempalte({}))
+})
 
 module.exports = router;

@@ -7,7 +7,7 @@ const card = (products) => {
 	<td>${product.title}</td>
 	<td>${product.price}</td>
 	<td><button class="btn btn-danger">Delete</button></td>
-	<td><button class="btn btn-info">Edit</button></td>
+	<td><a href="/admin/products/${product._id}/edit" class="btn btn-info">Edit</a></td>
 </tr>
 </div>`
 	}).join('')
