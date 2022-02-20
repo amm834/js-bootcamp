@@ -25,7 +25,7 @@ class UserRepository {
 
 	async create(attrs) {
 		attrs._id = this.randomId();
-		const salt = crypto.randomBytes(8)
+		const salt = crypto.randomUUID().toString().replace('-', '')
 		const buffer = await scrypt(attrs.password, salt, 64)
 		const hashed = buffer.toString('hex')
 
@@ -43,6 +43,7 @@ class UserRepository {
 
 	async comparePassword(saved, supplied) {
 		const [hashed, salt] = saved.split('.')
+
 		const hashSupplied = await scrypt(supplied, salt, 64)
 		return hashed === hashSupplied.toString('hex')
 	}
