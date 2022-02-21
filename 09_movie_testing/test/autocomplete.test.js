@@ -12,4 +12,6 @@ it('should show autocomplete', function () {
 			return `${movie.Title}`
 		}
 	})
+
+	const dropdown = document.querySelector('.dropdown')
 }); 
