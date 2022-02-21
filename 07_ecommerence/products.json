@@ -1,14 +1,20 @@
 [
     {
-        "title": "Robin nico chan cute picture",
-        "price": 999999,
-        "image": "localhost:3000/images/1645391723162-353403825-nico_robin_so_cute___one_piece_ep_752_by_berg_anime_ddnj9gs.jpg",
-        "_id": "3d19bd9b"
+        "title": "Yamato",
+        "price": 2020020,
+        "image": "localhost:3000/images/1645449817648-457063827-angry-yamato-one-piece-wallpaper-1680x1050_5.jpg",
+        "_id": "21effe2d"
     },
     {
-        "title": "Yamato angry",
-        "price": 999999,
-        "image": "localhost:3000/images/1645391795619-494577490-angry-yamato-one-piece-wallpaper-1680x1050_5.jpg",
-        "_id": "d517dff3"
+        "title": "Robin",
+        "price": 3939,
+        "image": "localhost:3000/images/1645449830186-952384713-nico_robin_so_cute___one_piece_ep_752_by_berg_anime_ddnj9gs.jpg",
+        "_id": "5726735e"
+    },
+    {
+        "title": "Yamto2",
+        "price": 9292,
+        "image": "localhost:3000/images/1645449855403-595727278-yamato___one_piece_episode_1006_by_berg_anime_dey84q1-pre.jpg",
+        "_id": "d2182fae"
     }
 ]
