@@ -39,6 +39,10 @@ router.get('/cart', async (req, res) => {
 })
 
 router.post('/cart/products/delete', async (req, res) => {
-	console.log(req.body.productId)
+	const {productId} = req.body;
+	const cart = await cartRepo.getOne(req.session.cartId)
+	const items = cart.items.filter(item => item.id !== productId)
+	await cartRepo.update(req.session.cartId, {items})
+	res.redirect('/cart')
 })
 module.exports = router;
