@@ -1,15 +1,17 @@
 const express = require('express')
 const cartRepo = require('../repositories/cart')
+const cartTemplate = require('../views/carts/carts')
+const productRepo = require('../repositories/product')
 
 const router = express.Router()
 
 router.post('/cart/products', async (req, res) => {
 	let cart;
-	if (!req.session.userId) {
+	if (!req.session.cartId) {
 		cart = await cartRepo.create({items: []})
-		req.session.userId = cart._id
+		req.session.cartId = cart._id
 	} else {
-		cart = await cartRepo.getOne(req.session.userId)
+		cart = await cartRepo.getOne(req.session.cartId)
 	}
 
 	const existingItem = cart.items.find(item => item.id === req.body.productId)
@@ -19,8 +21,21 @@ router.post('/cart/products', async (req, res) => {
 		cart.items.push({id: req.body.productId, quantity: 1})
 	}
 
-	await cartRepo.update(req.session.userId, cart)
-	res.send('cart added')
+	await cartRepo.update(req.session.cartId, cart)
+	res.redirect('/')
+})
+
+router.get('/cart', async (req, res) => {
+	const cart = await cartRepo.getOne(req.session.cartId)
+	if (cart) {
+		for (const item of cart.items) {
+			const product = await productRepo.getOne(item.id)
+			item.product = product
+		}
+		res.send(cartTemplate({items: cart.items}))
+	} else {
+		res.redirect('/')
+	}
 })
 
 module.exports = router;

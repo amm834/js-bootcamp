@@ -1,4 +1,4 @@
-const layout = require('./admin/layout')
+const layout = require('./layout')
 
 const card = (products) => {
 	return products.map(product => {

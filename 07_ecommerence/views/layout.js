@@ -27,6 +27,9 @@ module.exports = ({content}) => {
             </ul>
             
               <ul class="d-flex navbar-nav">
+              <li class="nav-item">
+              <a href="/cart" class="nav-link">Cart</a>
+</li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
