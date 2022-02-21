@@ -38,4 +38,7 @@ router.get('/cart', async (req, res) => {
 	}
 })
 
+router.post('/cart/products/delete', async (req, res) => {
+	console.log(req.body.productId)
+})
 module.exports = router;

@@ -6,7 +6,12 @@ const carts = (items) => {
 		<tr>
 		<td>${item.product.title}</td>
 		<td>${item.product.price}</td>
-		<td><button class="btn btn-danger">Delete </button> </td>
+		<td>
+		<form action="/cart/products/delete" method="post">
+		<input type="hidden" name="productId" value="${item.product._id}">
+		<button class="btn btn-danger">Delete </button> 
+</form>
+</td>
 		<td>$${item.product.price * item.quantity}</td>
 </tr>
 		`
@@ -17,7 +22,7 @@ module.exports = ({items}) => {
 
 	const grandTotal = items.reduce((prev, item) => {
 		return prev + item.product.price * item.quantity;
-	},0)
+	}, 0)
 
 	return layout({
 		content: `
