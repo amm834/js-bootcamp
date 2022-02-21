@@ -40,14 +40,29 @@ router.post('/admin/products/new',
 )
 ;
 
-router.get('/admin/products/:id/edit', async (req, res) => {
+router.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
 	const {id} = req.params;
 	const product = await productRepo.getOne(id)
 	if (!product) {
 		return res.send('Product not found')
 	}
 
-	res.send(productEditTempalte({}))
+	res.send(productEditTempalte({product}))
 })
+
+router.post('/admin/products/:id/edit',
+	upload.single('image'),
+	[requireTitle, requirePrice],
+
+	handleErrors(productEditTempalte, async req => {
+		const product = await productRepo.getOne(req.params.id)
+		return {product}
+	}),
+	async (req, res) => {
+		const {id} = req.params;
+		const product = await productRepo.getOne(id)
+		res.send(productEditTempalte({product}))
+	}
+)
 
 module.exports = router;
