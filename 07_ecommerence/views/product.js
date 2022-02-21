@@ -6,7 +6,10 @@ const card = (products) => {
 		<div class="col-md-4">
 		<div class="card">
 		<img src="http://${product.image}" alt="${product.title}" class="card-img-top" height="200">
+		<form action="/cart/products" method="post">
+		<input type="hidden" name="productId" value="${product._id}">
 		<button class="btn btn-success">Add To Cart</button>
+</form>
 </div>
 		</div>
 		`

@@ -1,7 +1,8 @@
-const router = require('express').Router()
+const express = require('express')
+const router = express.Router()
 
-router.get('/carts', (req, res) => {
-
+router.post('/cart/products', (req, res) => {
+	console.log(req.body.productId)
 })
 
 module.exports = router;
