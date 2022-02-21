@@ -6,10 +6,14 @@ const card = (products) => {
 	<tr>
 	<td>${product.title}</td>
 	<td>${product.price}</td>
-	<td><button class="btn btn-danger">Delete</button></td>
-	<td><a href="/admin/products/${product._id}/edit" class="btn btn-info">Edit</a></td>
+		<td><a href="/admin/products/${product._id}/edit" class="btn btn-info">Edit</a></td
+	<td><form action="/admin/products/${product._id}/delete" method="post">
+	</td>
+	<td>
+	<button class="btn btn-danger">Delete</button>
+</form></td>
 </tr>
-</div>`
+`
 	}).join('')
 }
 module.exports = ({products}) => {
@@ -18,7 +22,7 @@ module.exports = ({products}) => {
 	<h2 class="mb-3">Products</h2>
 	<a class="btn btn-success" href="/admin/products/new" >Create</a>
 
-	<table class="table">
+	<table class="table mb-3">
 	${card(products)}
 </table>
 		`
