@@ -1,8 +1,16 @@
 import * as fs from "fs/promises";
 import * as path from "path";
+import vm from 'vm'
 
 class Runner {
 	testFiles = []
+
+	async runTestFiles() {
+		for (const file of this.testFiles) {
+			const code = await fs.readFile(file.name)
+			vm.runInNewContext(code.toString())
+		}
+	}
 
 	async collectFiles(targetPath) {
 		const files = await fs.readdir(targetPath);
