@@ -7,6 +7,7 @@ class Runner {
 
 	async runTestFiles() {
 		for (const file of this.testFiles) {
+			console.log(chalk.gray(`-------- ${file.shortName}`))
 			const beforeEachs = []
 			global.beforeEach = (fn) => {
 				beforeEachs.push(fn)
@@ -14,17 +15,18 @@ class Runner {
 			global.it = (desc, fn) => {
 				beforeEachs.forEach(fn => fn())
 				try {
+					console.log(chalk.green(`✓ OK - ${desc}`))
 					fn()
 				} catch (error) {
 					console.log(chalk.bgRed('Failed'))
-					console.log(chalk.red(`x - ${desc}\n`))
+					console.log(chalk.red(`✕ - ${desc}\n`))
 					console.log(error.message)
 				}
 			}
 			try {
 				require(file.name)
 			} catch (error) {
-				console.log(chalk.bgRed(`File: ${file.name}`))
+				console.log(chalk.bgRed(`Error: ${file.shortName}`))
 				console.log(error)
 			}
 		}
@@ -38,7 +40,7 @@ class Runner {
 			const stats = await fs.lstat(filepath)
 
 			if (stats.isFile() && file.includes('.test.js')) {
-				this.testFiles.push({name: filepath})
+				this.testFiles.push({name: filepath, shortName: file})
 			} else if (stats.isDirectory()) {
 				const childFiles = await fs.readdir(filepath)
 				files.push(...childFiles.map(f => path.join(file, f)))

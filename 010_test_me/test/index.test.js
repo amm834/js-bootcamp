@@ -10,11 +10,9 @@ it('should sum array', () => {
 	forEach([1, 2, 3], (value) => {
 		result += value;
 	})
-	assert.strictEqual(result, 6)
+	assert.strictEqual(result, 3)
 })
 
 it('shold be 3', () => {
 	assert.strictEqual(numbers.length, 3)
 })
-
-dd{}
