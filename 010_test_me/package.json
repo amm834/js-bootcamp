@@ -13,6 +13,7 @@
     "tme": "index.js"
   },
   "dependencies": {
-    "chalk": "4"
+    "chalk": "4",
+    "jsdom": "^19.0.0"
   }
 }
