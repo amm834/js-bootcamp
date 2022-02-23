@@ -20,10 +20,12 @@ it('Dropdown starts open', function () {
 	expect(dropdown.className).not.to.include('.is-active')
 });
 
-it('After searching shows dropdown', function () {
+it('After searching shows dropdown', async function () {
 	const input = document.querySelector('input')
 	input.value = 'avengers'
 	input.dispatchEvent(new Event('input'))
+
+	await waitFor('.dropdown-item')
 
 	const dropdown = document.querySelector('.dropdown')
 	expect(dropdown.className).to.include('.is-active')
