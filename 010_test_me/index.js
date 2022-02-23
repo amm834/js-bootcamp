@@ -2,5 +2,5 @@
 import Runner from "./runner.js";
 
 const runner = new Runner();
-const files = await runner.collectFiles(process.cwd())
-console.log(files)
+await runner.collectFiles(process.cwd())
+console.log(runner.testFiles)
