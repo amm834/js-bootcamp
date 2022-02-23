@@ -11,9 +11,11 @@ it('shows an valid email message', async function () {
 
 	const input = dom.window.document.querySelector('input')
 	input.value = 'amm@gmail.com'
-	dom.window.document.querySelector('form')
-		.dispatchEvent(new dom.window.Event('input'))
+	dom.window.document
+		.querySelector('form')
+		.dispatchEvent(new dom.window.Event('submit'))
 
-	const header = dom.window.document.querySelector('input')
-	console.log('Content of header', header.innerHTML)
+	const header = dom.window.document.querySelector('h1')
+	assert.strictEqual(header.innerHTML, 'Valid email')
+
 });
