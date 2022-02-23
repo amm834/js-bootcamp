@@ -2,6 +2,8 @@ const fs = require('fs/promises')
 const path = require('path')
 const chalk = require('chalk')
 
+const forbiddenDirs = ['node_modules', 'src']
+
 class Runner {
 	testFiles = []
 
@@ -18,9 +20,10 @@ class Runner {
 					console.log(chalk.green(`✓ OK - ${desc}`))
 					fn()
 				} catch (error) {
+					const message = error.message.replace(/\n/g, '\n\t\t')
 					console.log(chalk.bgRed('Failed'))
 					console.log(chalk.red(`✕ - ${desc}\n`))
-					console.log(error.message)
+					console.log(chalk.red(message))
 				}
 			}
 			try {
@@ -41,7 +44,7 @@ class Runner {
 
 			if (stats.isFile() && file.includes('.test.js')) {
 				this.testFiles.push({name: filepath, shortName: file})
-			} else if (stats.isDirectory()) {
+			} else if (stats.isDirectory() && !forbiddenDirs.includes(file)) {
 				const childFiles = await fs.readdir(filepath)
 				files.push(...childFiles.map(f => path.join(file, f)))
 			}
