@@ -1,14 +1,12 @@
-import * as fs from "fs/promises";
-import * as path from "path";
-import vm from 'vm'
+const fs = require('fs/promises')
+const path = require('path')
 
 class Runner {
 	testFiles = []
 
 	async runTestFiles() {
 		for (const file of this.testFiles) {
-			const code = await fs.readFile(file.name)
-			vm.runInNewContext(code.toString())
+			require(file.name)
 		}
 	}
 
@@ -28,4 +26,4 @@ class Runner {
 	}
 }
 
-export default Runner;
+module.exports = Runner;
