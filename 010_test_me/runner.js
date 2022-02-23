@@ -6,6 +6,14 @@ class Runner {
 
 	async runTestFiles() {
 		for (const file of this.testFiles) {
+			const beforeEachs = []
+			global.beforeEach = (fn) => {
+				beforeEachs.push(fn)
+			}
+			global.it = (desc, fn) => {
+				beforeEachs.forEach(fn => fn())
+				fn()
+			}
 			require(file.name)
 		}
 	}
