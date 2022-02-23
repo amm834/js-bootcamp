@@ -1,5 +1,6 @@
 const fs = require('fs/promises')
 const path = require('path')
+const chalk = require('chalk')
 
 class Runner {
 	testFiles = []
@@ -12,13 +13,25 @@ class Runner {
 			}
 			global.it = (desc, fn) => {
 				beforeEachs.forEach(fn => fn())
-				fn()
+				try {
+					fn()
+				} catch (error) {
+					console.log(chalk.bgRed('Failed'))
+					console.log(chalk.red(`x - ${desc}\n`))
+					console.log(error.message)
+				}
 			}
-			require(file.name)
+			try {
+				require(file.name)
+			} catch (error) {
+				console.log(chalk.bgRed(`File: ${file.name}`))
+				console.log(error)
+			}
 		}
 	}
 
 	async collectFiles(targetPath) {
+
 		const files = await fs.readdir(targetPath);
 		for (const file of files) {
 			const filepath = path.join(targetPath, file)

@@ -16,3 +16,5 @@ it('should sum array', () => {
 it('shold be 3', () => {
 	assert.strictEqual(numbers.length, 3)
 })
+
+dd{}
