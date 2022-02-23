@@ -56,5 +56,5 @@ it('After searching shows some result', async function () {
 	await waitFor('.dropdown-item')
 
 	const dropdown = document.querySelectorAll('.dropdown-item')
-	expect(dropdown.length).to.equal(3)
+	expect(dropdown.length).to.include('is-active')
 });
