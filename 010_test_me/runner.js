@@ -1,6 +1,7 @@
 const fs = require('fs/promises')
 const path = require('path')
 const chalk = require('chalk')
+const render = require('./render')
 
 const forbiddenDirs = ['node_modules', 'src']
 
@@ -10,7 +11,8 @@ class Runner {
 	async runTestFiles() {
 		for (const file of this.testFiles) {
 			console.log(chalk.gray(`-------- ${file.shortName}`))
-			const beforeEachs = []
+			const beforeEachs = [];
+			global.render = render;
 			global.beforeEach = (fn) => {
 				beforeEachs.push(fn)
 			}
