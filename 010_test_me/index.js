@@ -1,3 +1,6 @@
 #!/usr/bin/env node
+import Runner from "./runner.js";
 
-console.log('running ')
+const runner = new Runner();
+const files = await runner.collectFiles(process.cwd())
+console.log(files)

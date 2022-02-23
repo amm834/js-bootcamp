@@ -1,9 +1,11 @@
+import * as fs from "fs/promises";
+
 class Runner {
-	filenames = []
+	files = []
 
-	collectFiles() {
-
+	async collectFiles(targetDir) {
+		return await fs.readdir(targetDir);
 	}
 }
 
-module.exports = Runner;
+export default Runner;
